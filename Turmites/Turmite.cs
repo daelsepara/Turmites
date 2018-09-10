@@ -43,6 +43,8 @@ public class Turmite
 	public int State = 1;
 	public int Color;
 	public int Direction;
+	public int Age;
+	public int Birth;
 
 	public List<string> Colors = new List<string>();
 	public List<string> Directions = new List<string>();
@@ -394,6 +396,8 @@ public class Turmite
 
 	public void Update()
 	{
+		Age++;
+
 		Refresh();
 
 		Move();
@@ -512,8 +516,10 @@ public class Turmite
 		}
 	}
 
-	public Turmite(int X, int Y, int cellStates, string source, Color color, List<WorldSystem.Point> neighborhood)
+	public Turmite(int X, int Y, int cellStates, string source, Color color, List<WorldSystem.Point> neighborhood, int birth = 0)
 	{
+		Birth = birth;
+
 		Neighborhood.Clear();
 
 		Neighborhood.AddRange(neighborhood);

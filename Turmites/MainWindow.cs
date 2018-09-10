@@ -21,10 +21,11 @@ public partial class MainWindow : Gtk.Window
 
 	bool ShowTurmites = true;
 	bool Paused = true;
-    bool IsDragging;
+	bool IsDragging;
 
 	int X0, Y0, X1, Y1, prevX, prevY;
 	int Selected;
+	int Epoch;
 
 	public MainWindow() : base(Gtk.WindowType.Toplevel)
 	{
@@ -87,9 +88,6 @@ public partial class MainWindow : Gtk.Window
 
 		Idle.Add(new IdleHandler(OnIdle));
 
-		if (Paused)
-			Pause();
-
 		var Defaults = ParameterSets.Default();
 
 		var source = Utility.GetString(Defaults, "Source");
@@ -123,18 +121,21 @@ public partial class MainWindow : Gtk.Window
 		);
 
 		Cyclic.Active = false;
+
+		if (Paused)
+			Pause();
 	}
 
 	protected Pixbuf InitializePixbuf(int width, int height)
-    {
-        return new Pixbuf(Colorspace.Rgb, false, 8, width, height);
-    }
+	{
+		return new Pixbuf(Colorspace.Rgb, false, 8, width, height);
+	}
 
 	protected void InitializeWorldPixbuf()
 	{
 		if (WorldPixbuf != null)
 			WorldPixbuf.Dispose();
-		
+
 		WorldPixbuf = InitializePixbuf(WorldParameters.Width, WorldParameters.Height);
 
 		WorldPixbuf.Fill(0);
@@ -147,6 +148,11 @@ public partial class MainWindow : Gtk.Window
 		Confirm.Hide();
 
 		return confirm;
+	}
+
+    protected void UpdateEpoch()
+	{
+		WorldEpoch.Text = Epoch.ToString();
 	}
 
 	protected int RenderTurmite(Pixbuf pixbuf, Turmite turmite, int x, int y, bool Clear = true)
@@ -277,19 +283,32 @@ public partial class MainWindow : Gtk.Window
 		Paused = false;
 	}
 
-	protected void InitializeSelected()
+    protected void UpdateTurmiteLocation()
 	{
 		if (Selected > 0 && Selected <= Turmites.Count)
 		{
 			var turmite = Turmites[Selected - 1];
 
 			TurmiteHeadX.Value = turmite.Head.X;
-			TurmiteHeadY.Value = turmite.Head.Y;
+            TurmiteHeadY.Value = turmite.Head.Y;
+
+			Age.Text = turmite.Age.ToString();
+		}
+	}
+
+	protected void InitializeSelected()
+	{
+		UpdateTurmiteLocation();
+
+		if (Selected > 0 && Selected <= Turmites.Count)
+		{
+			var turmite = Turmites[Selected - 1];
+
 			TurmiteStates.Value = turmite.CellStates;
 			TurmiteProgram.Buffer.Text = Utility.SetText(turmite.Source);
 			TurmiteColor.Color = turmite.TurmiteColor;
 			Cyclic.Active = turmite.GetCyclic();
-
+			Birth.Text = turmite.Birth.ToString();
 			TurmitesList.Active = Selected - 1;
 		}
 	}
@@ -431,22 +450,6 @@ public partial class MainWindow : Gtk.Window
 		TurmitesList.Active = turmites.Count > 0 ? turmites.Count - 1 : -1;
 	}
 
-	protected void AddTurmite(int X, int Y)
-    {
-        var source = Utility.GetText(TurmiteProgram);
-        var neighborhood = SetNeighborhood();
-        var states = Convert.ToInt32(TurmiteStates.Value);
-        var turmite = new Turmite(X, Y, states, source, TurmiteColor.Color, neighborhood);
-
-		turmite.SetCyclic(Cyclic.Active);
-
-        turmite.SetLimits(WorldParameters.Width, WorldParameters.Height);
-
-        Turmites.Add(turmite);
-
-        UpdateTurmitesList(TurmitesList, Turmites);
-    }
-
 	protected void UpdateTurmiteLibrary(ComboBox combo, List<TurmiteCode> turmites)
 	{
 		combo.Clear();
@@ -465,11 +468,40 @@ public partial class MainWindow : Gtk.Window
 		TurmiteLibrary.Active = turmites.Count > 0 ? 0 : -1;
 	}
 
+	protected void AddTurmite(int X, int Y)
+	{
+		var source = Utility.GetText(TurmiteProgram);
+		var neighborhood = SetNeighborhood();
+		var states = Convert.ToInt32(TurmiteStates.Value);
+		var turmite = new Turmite(X, Y, states, source, TurmiteColor.Color, neighborhood, Epoch);
+
+		turmite.SetCyclic(Cyclic.Active);
+
+		turmite.SetLimits(WorldParameters.Width, WorldParameters.Height);
+
+		Turmites.Add(turmite);
+
+		UpdateTurmitesList(TurmitesList, Turmites);
+	}
+
+	protected void RemoveAllTurmites()
+	{
+		Turmites.Clear();
+
+		TurmitesList.Clear();
+
+		Selected = 0;
+
+		WorldPixbuf.Fill(0);
+
+		RenderWorldPixbuf();
+	}
+
 	protected void SaveImageFile()
 	{
 		if (Selected > 0 && Turmites.Count > 0 && (Selected - 1) < Turmites.Count)
 		{
-			ImageChooser.Title = "Save colony snapshot";
+			ImageChooser.Title = "Save turmite";
 		}
 		else
 		{
@@ -540,17 +572,6 @@ public partial class MainWindow : Gtk.Window
 		OnDeleteEvent(sender, new DeleteEventArgs());
 	}
 
-	void OnRunButtonClicked(object sender, EventArgs args)
-	{
-		if (!Paused)
-			return;
-
-		if (Turmites.Count > 0)
-		{
-			Run();
-		}
-	}
-
 	void OnShowButtonClicked(object sender, EventArgs args)
 	{
 		if (Turmites.Count > 0)
@@ -564,20 +585,34 @@ public partial class MainWindow : Gtk.Window
 
 	void OnClearButtonClicked(object sender, EventArgs args)
 	{
-		if (Paused && Turmites.Count > 0)
+		if (!Paused)
+			return;
+
+		if (Turmites.Count > 0)
 		{
 			if (GetConfirmation())
 			{
-				Turmites.Clear();
+				Epoch = 0;
 
-				Selected = 0;
-
-				WorldPixbuf.Fill(0);
-
-				RenderWorldPixbuf();
-
-				TurmitesList.Clear();
+				RemoveAllTurmites();
 			}
+		}
+		else
+		{
+			Epoch = 0;
+		}
+
+		UpdateEpoch();
+	}
+
+	void OnRunButtonClicked(object sender, EventArgs args)
+	{
+		if (!Paused)
+			return;
+
+		if (Turmites.Count > 0)
+		{
+			Run();
 		}
 	}
 
@@ -652,8 +687,12 @@ public partial class MainWindow : Gtk.Window
 	{
 		Rendering.WaitOne();
 
-		if (!Paused)
+		if (!Paused && Turmites.Count > 0)
 		{
+			Epoch++;
+
+			UpdateEpoch();
+
 			Toc();
 
 			var start = Ticks();
@@ -665,7 +704,7 @@ public partial class MainWindow : Gtk.Window
 
 			if (Selected > 0)
 			{
-				InitializeSelected();
+				UpdateTurmiteLocation();
 			}
 
 			RenderTurmites(WorldPixbuf);
@@ -675,7 +714,8 @@ public partial class MainWindow : Gtk.Window
 			RenderTurmiteHeads(WorldPixbuf);
 
 		RenderWorldPixbuf();
-		Rendering.WaitOne();
+
+		Rendering.ReleaseMutex();
 
 		return true;
 	}
@@ -714,6 +754,7 @@ public partial class MainWindow : Gtk.Window
 					Refresh();
 
 					System.GC.Collect();
+
 					System.GC.WaitForPendingFinalizers();
 
 					break;
@@ -769,20 +810,20 @@ public partial class MainWindow : Gtk.Window
 		if (!Paused)
 			return;
 
-		if (IsDragging && args.Event.Button == 1)
+		if (args.Event.Button == 1)
 		{
-			IsDragging = false;
-
-			if (Selected > 0)
+			if (IsDragging)
 			{
-				InitializeSelected();
+				IsDragging = false;
 
-				Refresh();
+				if (Selected > 0)
+				{
+					InitializeSelected();
+
+					Refresh();
+				}
 			}
-		}
-		else
-		{
-			if (args.Event.Button == 1)
+			else
 			{
 				if (TurmiteAddButton.Active)
 				{
@@ -858,7 +899,7 @@ public partial class MainWindow : Gtk.Window
 
 		InitializeWorldPixbuf();
 
-        ResetWorldScrollBars();
+		ResetWorldScrollBars();
 
 		Refresh();
 	}
@@ -866,7 +907,7 @@ public partial class MainWindow : Gtk.Window
 	protected void OnWorldHeightValueChanged(object sender, EventArgs e)
 	{
 		if (!Paused)
-            return;
+			return;
 
 		WorldParameters.Height = Convert.ToInt32(WorldHeight.Value);
 

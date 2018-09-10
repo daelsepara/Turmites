@@ -111,6 +111,18 @@ public partial class MainWindow
 
 	private global::Gtk.CheckButton Cyclic;
 
+	private global::Gtk.Entry WorldEpoch;
+
+	private global::Gtk.Label LabelEpoch;
+
+	private global::Gtk.Entry Age;
+
+	private global::Gtk.Entry Birth;
+
+	private global::Gtk.Label LabelAge;
+
+	private global::Gtk.Label LabelBirth;
+
 	private global::Gtk.Label PropertiesPageLabel;
 
 	private global::Gtk.Toolbar MainToolbar;
@@ -254,6 +266,7 @@ public partial class MainWindow
 		this.WorldWidth.Adjustment.PageIncrement = 1D;
 		this.WorldWidth.ClimbRate = 1D;
 		this.WorldWidth.Numeric = true;
+		this.WorldWidth.Value = 640D;
 		this.PropertiesPageLayout.Add(this.WorldWidth);
 		global::Gtk.Fixed.FixedChild w10 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.WorldWidth]));
 		w10.X = 80;
@@ -266,6 +279,7 @@ public partial class MainWindow
 		this.WorldHeight.Adjustment.PageIncrement = 1D;
 		this.WorldHeight.ClimbRate = 1D;
 		this.WorldHeight.Numeric = true;
+		this.WorldHeight.Value = 480D;
 		this.PropertiesPageLayout.Add(this.WorldHeight);
 		global::Gtk.Fixed.FixedChild w11 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.WorldHeight]));
 		w11.X = 80;
@@ -296,7 +310,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.TurmitesList);
 		global::Gtk.Fixed.FixedChild w14 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.TurmitesList]));
 		w14.X = 13;
-		w14.Y = 143;
+		w14.Y = 140;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.TurmiteLabelHead = new global::Gtk.Label();
 		this.TurmiteLabelHead.Name = "TurmiteLabelHead";
@@ -357,8 +371,8 @@ public partial class MainWindow
 		this.TurmiteLabelSource.UseMarkup = true;
 		this.PropertiesPageLayout.Add(this.TurmiteLabelSource);
 		global::Gtk.Fixed.FixedChild w20 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.TurmiteLabelSource]));
-		w20.X = 80;
-		w20.Y = 280;
+		w20.X = 10;
+		w20.Y = 275;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.GtkScrolledWindow = new global::Gtk.ScrolledWindow();
 		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
@@ -366,14 +380,14 @@ public partial class MainWindow
 		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
 		this.TurmiteProgram = new global::Gtk.TextView();
 		this.TurmiteProgram.WidthRequest = 150;
-		this.TurmiteProgram.HeightRequest = 110;
+		this.TurmiteProgram.HeightRequest = 100;
 		this.TurmiteProgram.CanFocus = true;
 		this.TurmiteProgram.Name = "TurmiteProgram";
 		this.GtkScrolledWindow.Add(this.TurmiteProgram);
 		this.PropertiesPageLayout.Add(this.GtkScrolledWindow);
 		global::Gtk.Fixed.FixedChild w22 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.GtkScrolledWindow]));
 		w22.X = 78;
-		w22.Y = 308;
+		w22.Y = 270;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.TurmiteColor = new global::Gtk.ColorButton();
 		this.TurmiteColor.WidthRequest = 150;
@@ -383,7 +397,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.TurmiteColor);
 		global::Gtk.Fixed.FixedChild w23 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.TurmiteColor]));
 		w23.X = 80;
-		w23.Y = 440;
+		w23.Y = 410;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.TurmiteLabelColor = new global::Gtk.Label();
 		this.TurmiteLabelColor.WidthRequest = 50;
@@ -394,7 +408,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.TurmiteLabelColor);
 		global::Gtk.Fixed.FixedChild w24 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.TurmiteLabelColor]));
 		w24.X = 25;
-		w24.Y = 448;
+		w24.Y = 418;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.UIManager.AddUiFromString("<ui><toolbar name=\'TurmiteToolBar\'><toolitem name=\'TurmiteAddButton\' action=\'Turm" +
 				"iteAddButton\'/></toolbar></ui>");
@@ -404,7 +418,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.TurmiteToolBar);
 		global::Gtk.Fixed.FixedChild w25 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.TurmiteToolBar]));
 		w25.X = 240;
-		w25.Y = 138;
+		w25.Y = 135;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.TL = new global::Gtk.CheckButton();
 		this.TL.Name = "TL";
@@ -415,7 +429,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.TL);
 		global::Gtk.Fixed.FixedChild w26 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.TL]));
 		w26.X = 260;
-		w26.Y = 302;
+		w26.Y = 292;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.LabelNeighborhood = new global::Gtk.Label();
 		this.LabelNeighborhood.Name = "LabelNeighborhood";
@@ -424,7 +438,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.LabelNeighborhood);
 		global::Gtk.Fixed.FixedChild w27 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.LabelNeighborhood]));
 		w27.X = 260;
-		w27.Y = 280;
+		w27.Y = 275;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.TM = new global::Gtk.CheckButton();
 		this.TM.CanFocus = true;
@@ -436,7 +450,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.TM);
 		global::Gtk.Fixed.FixedChild w28 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.TM]));
 		w28.X = 290;
-		w28.Y = 302;
+		w28.Y = 292;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.TR = new global::Gtk.CheckButton();
 		this.TR.Name = "TR";
@@ -447,7 +461,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.TR);
 		global::Gtk.Fixed.FixedChild w29 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.TR]));
 		w29.X = 320;
-		w29.Y = 302;
+		w29.Y = 292;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.ML = new global::Gtk.CheckButton();
 		this.ML.Name = "ML";
@@ -458,7 +472,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.ML);
 		global::Gtk.Fixed.FixedChild w30 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.ML]));
 		w30.X = 260;
-		w30.Y = 332;
+		w30.Y = 322;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.LabelCenter = new global::Gtk.Label();
 		this.LabelCenter.Name = "LabelCenter";
@@ -467,7 +481,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.LabelCenter);
 		global::Gtk.Fixed.FixedChild w31 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.LabelCenter]));
 		w31.X = 295;
-		w31.Y = 335;
+		w31.Y = 325;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.MR = new global::Gtk.CheckButton();
 		this.MR.Name = "MR";
@@ -478,7 +492,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.MR);
 		global::Gtk.Fixed.FixedChild w32 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.MR]));
 		w32.X = 320;
-		w32.Y = 332;
+		w32.Y = 322;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.BL = new global::Gtk.CheckButton();
 		this.BL.Name = "BL";
@@ -489,7 +503,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.BL);
 		global::Gtk.Fixed.FixedChild w33 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.BL]));
 		w33.X = 260;
-		w33.Y = 362;
+		w33.Y = 352;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.BM = new global::Gtk.CheckButton();
 		this.BM.Name = "BM";
@@ -500,7 +514,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.BM);
 		global::Gtk.Fixed.FixedChild w34 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.BM]));
 		w34.X = 290;
-		w34.Y = 362;
+		w34.Y = 352;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.BR = new global::Gtk.CheckButton();
 		this.BR.Name = "BR";
@@ -511,7 +525,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.BR);
 		global::Gtk.Fixed.FixedChild w35 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.BR]));
 		w35.X = 320;
-		w35.Y = 362;
+		w35.Y = 352;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.LabelStates = new global::Gtk.Label();
 		this.LabelStates.Name = "LabelStates";
@@ -529,6 +543,7 @@ public partial class MainWindow
 		this.TurmiteStates.Adjustment.PageIncrement = 1D;
 		this.TurmiteStates.ClimbRate = 1D;
 		this.TurmiteStates.Numeric = true;
+		this.TurmiteStates.Value = 2D;
 		this.PropertiesPageLayout.Add(this.TurmiteStates);
 		global::Gtk.Fixed.FixedChild w37 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.TurmiteStates]));
 		w37.X = 260;
@@ -540,7 +555,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.TurmiteLibrary);
 		global::Gtk.Fixed.FixedChild w38 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.TurmiteLibrary]));
 		w38.X = 13;
-		w38.Y = 509;
+		w38.Y = 520;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.LabelTurmiteLibrary = new global::Gtk.Label();
 		this.LabelTurmiteLibrary.Name = "LabelTurmiteLibrary";
@@ -549,7 +564,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.LabelTurmiteLibrary);
 		global::Gtk.Fixed.FixedChild w39 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.LabelTurmiteLibrary]));
 		w39.X = 13;
-		w39.Y = 486;
+		w39.Y = 500;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.UIManager.AddUiFromString("<ui><toolbar name=\'LibraryToolbar\'><toolitem name=\'CopyProgramButton\' action=\'Cop" +
 				"yProgramButton\'/></toolbar></ui>");
@@ -559,7 +574,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.LibraryToolbar);
 		global::Gtk.Fixed.FixedChild w40 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.LibraryToolbar]));
 		w40.X = 244;
-		w40.Y = 504;
+		w40.Y = 515;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.AddButton = new global::Gtk.Button();
 		this.AddButton.Name = "AddButton";
@@ -568,7 +583,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.AddButton);
 		global::Gtk.Fixed.FixedChild w41 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.AddButton]));
 		w41.X = 238;
-		w41.Y = 442;
+		w41.Y = 412;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.Cyclic = new global::Gtk.CheckButton();
 		this.Cyclic.Name = "Cyclic";
@@ -579,7 +594,64 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.Cyclic);
 		global::Gtk.Fixed.FixedChild w42 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.Cyclic]));
 		w42.X = 260;
-		w42.Y = 392;
+		w42.Y = 382;
+		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
+		this.WorldEpoch = new global::Gtk.Entry();
+		this.WorldEpoch.WidthRequest = 120;
+		this.WorldEpoch.Name = "WorldEpoch";
+		this.WorldEpoch.IsEditable = false;
+		this.WorldEpoch.InvisibleChar = '•';
+		this.PropertiesPageLayout.Add(this.WorldEpoch);
+		global::Gtk.Fixed.FixedChild w43 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.WorldEpoch]));
+		w43.X = 250;
+		w43.Y = 40;
+		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
+		this.LabelEpoch = new global::Gtk.Label();
+		this.LabelEpoch.Name = "LabelEpoch";
+		this.LabelEpoch.LabelProp = global::Mono.Unix.Catalog.GetString("<b>Epoch</b>");
+		this.LabelEpoch.UseMarkup = true;
+		this.PropertiesPageLayout.Add(this.LabelEpoch);
+		global::Gtk.Fixed.FixedChild w44 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.LabelEpoch]));
+		w44.X = 250;
+		w44.Y = 10;
+		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
+		this.Age = new global::Gtk.Entry();
+		this.Age.WidthRequest = 100;
+		this.Age.Name = "Age";
+		this.Age.IsEditable = false;
+		this.Age.InvisibleChar = '•';
+		this.PropertiesPageLayout.Add(this.Age);
+		global::Gtk.Fixed.FixedChild w45 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.Age]));
+		w45.X = 81;
+		w45.Y = 460;
+		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
+		this.Birth = new global::Gtk.Entry();
+		this.Birth.WidthRequest = 100;
+		this.Birth.Name = "Birth";
+		this.Birth.IsEditable = false;
+		this.Birth.InvisibleChar = '•';
+		this.PropertiesPageLayout.Add(this.Birth);
+		global::Gtk.Fixed.FixedChild w46 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.Birth]));
+		w46.X = 250;
+		w46.Y = 460;
+		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
+		this.LabelAge = new global::Gtk.Label();
+		this.LabelAge.Name = "LabelAge";
+		this.LabelAge.LabelProp = global::Mono.Unix.Catalog.GetString("<b>Age</b>");
+		this.LabelAge.UseMarkup = true;
+		this.PropertiesPageLayout.Add(this.LabelAge);
+		global::Gtk.Fixed.FixedChild w47 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.LabelAge]));
+		w47.X = 40;
+		w47.Y = 465;
+		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
+		this.LabelBirth = new global::Gtk.Label();
+		this.LabelBirth.Name = "LabelBirth";
+		this.LabelBirth.LabelProp = global::Mono.Unix.Catalog.GetString("<b>Birth</b>");
+		this.LabelBirth.UseMarkup = true;
+		this.PropertiesPageLayout.Add(this.LabelBirth);
+		global::Gtk.Fixed.FixedChild w48 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.LabelBirth]));
+		w48.X = 200;
+		w48.Y = 465;
 		this.PropertiesNotebook.Add(this.PropertiesPageLayout);
 		// Notebook tab
 		this.PropertiesPageLabel = new global::Gtk.Label();
@@ -588,9 +660,9 @@ public partial class MainWindow
 		this.PropertiesNotebook.SetTabLabel(this.PropertiesPageLayout, this.PropertiesPageLabel);
 		this.PropertiesPageLabel.ShowAll();
 		this.MainLayout.Add(this.PropertiesNotebook);
-		global::Gtk.Fixed.FixedChild w44 = ((global::Gtk.Fixed.FixedChild)(this.MainLayout[this.PropertiesNotebook]));
-		w44.X = 840;
-		w44.Y = 60;
+		global::Gtk.Fixed.FixedChild w50 = ((global::Gtk.Fixed.FixedChild)(this.MainLayout[this.PropertiesNotebook]));
+		w50.X = 840;
+		w50.Y = 60;
 		// Container child MainLayout.Gtk.Fixed+FixedChild
 		this.UIManager.AddUiFromString(@"<ui><toolbar name='MainToolbar'><toolitem name='RunButton' action='RunButton'/><toolitem name='PauseButton' action='PauseButton'/><toolitem name='SaveButton' action='SaveButton'/><toolitem name='ClearButton' action='ClearButton'/><toolitem name='ShowButton' action='ShowButton'/><separator/><toolitem name='QuitButton' action='QuitButton'/></toolbar></ui>");
 		this.MainToolbar = ((global::Gtk.Toolbar)(this.UIManager.GetWidget("/MainToolbar")));
@@ -600,9 +672,9 @@ public partial class MainWindow
 		this.MainToolbar.ToolbarStyle = ((global::Gtk.ToolbarStyle)(0));
 		this.MainToolbar.IconSize = ((global::Gtk.IconSize)(3));
 		this.MainLayout.Add(this.MainToolbar);
-		global::Gtk.Fixed.FixedChild w45 = ((global::Gtk.Fixed.FixedChild)(this.MainLayout[this.MainToolbar]));
-		w45.X = 20;
-		w45.Y = 10;
+		global::Gtk.Fixed.FixedChild w51 = ((global::Gtk.Fixed.FixedChild)(this.MainLayout[this.MainToolbar]));
+		w51.X = 20;
+		w51.Y = 10;
 		this.Add(this.MainLayout);
 		if ((this.Child != null))
 		{

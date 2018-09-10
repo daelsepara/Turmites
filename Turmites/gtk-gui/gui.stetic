@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <stetic-interface>
   <configuration>
     <images-root-path>..</images-root-path>
@@ -205,6 +205,7 @@
                     <property name="StepIncrement">1</property>
                     <property name="ClimbRate">1</property>
                     <property name="Numeric">True</property>
+                    <property name="Value">640</property>
                     <signal name="ValueChanged" handler="OnWorldWidthValueChanged" />
                   </widget>
                   <packing>
@@ -223,6 +224,7 @@
                     <property name="StepIncrement">1</property>
                     <property name="ClimbRate">1</property>
                     <property name="Numeric">True</property>
+                    <property name="Value">480</property>
                     <signal name="ValueChanged" handler="OnWorldHeightValueChanged" />
                   </widget>
                   <packing>
@@ -263,7 +265,7 @@
                   </widget>
                   <packing>
                     <property name="X">13</property>
-                    <property name="Y">143</property>
+                    <property name="Y">140</property>
                   </packing>
                 </child>
                 <child>
@@ -340,8 +342,8 @@
                     <property name="UseMarkup">True</property>
                   </widget>
                   <packing>
-                    <property name="X">80</property>
-                    <property name="Y">280</property>
+                    <property name="X">10</property>
+                    <property name="Y">275</property>
                   </packing>
                 </child>
                 <child>
@@ -352,7 +354,7 @@
                       <widget class="Gtk.TextView" id="TurmiteProgram">
                         <property name="MemberName" />
                         <property name="WidthRequest">150</property>
-                        <property name="HeightRequest">110</property>
+                        <property name="HeightRequest">100</property>
                         <property name="CanFocus">True</property>
                         <property name="ShowScrollbars">True</property>
                         <property name="Text" translatable="yes" />
@@ -361,7 +363,7 @@
                   </widget>
                   <packing>
                     <property name="X">78</property>
-                    <property name="Y">308</property>
+                    <property name="Y">270</property>
                   </packing>
                 </child>
                 <child>
@@ -374,7 +376,7 @@
                   </widget>
                   <packing>
                     <property name="X">80</property>
-                    <property name="Y">440</property>
+                    <property name="Y">410</property>
                   </packing>
                 </child>
                 <child>
@@ -387,7 +389,7 @@
                   </widget>
                   <packing>
                     <property name="X">25</property>
-                    <property name="Y">448</property>
+                    <property name="Y">418</property>
                   </packing>
                 </child>
                 <child>
@@ -400,7 +402,7 @@
                   </widget>
                   <packing>
                     <property name="X">240</property>
-                    <property name="Y">138</property>
+                    <property name="Y">135</property>
                   </packing>
                 </child>
                 <child>
@@ -414,7 +416,7 @@
                   </widget>
                   <packing>
                     <property name="X">260</property>
-                    <property name="Y">302</property>
+                    <property name="Y">292</property>
                   </packing>
                 </child>
                 <child>
@@ -425,7 +427,7 @@
                   </widget>
                   <packing>
                     <property name="X">260</property>
-                    <property name="Y">280</property>
+                    <property name="Y">275</property>
                   </packing>
                 </child>
                 <child>
@@ -440,7 +442,7 @@
                   </widget>
                   <packing>
                     <property name="X">290</property>
-                    <property name="Y">302</property>
+                    <property name="Y">292</property>
                   </packing>
                 </child>
                 <child>
@@ -454,7 +456,7 @@
                   </widget>
                   <packing>
                     <property name="X">320</property>
-                    <property name="Y">302</property>
+                    <property name="Y">292</property>
                   </packing>
                 </child>
                 <child>
@@ -468,7 +470,7 @@
                   </widget>
                   <packing>
                     <property name="X">260</property>
-                    <property name="Y">332</property>
+                    <property name="Y">322</property>
                   </packing>
                 </child>
                 <child>
@@ -479,7 +481,7 @@
                   </widget>
                   <packing>
                     <property name="X">295</property>
-                    <property name="Y">335</property>
+                    <property name="Y">325</property>
                   </packing>
                 </child>
                 <child>
@@ -493,7 +495,7 @@
                   </widget>
                   <packing>
                     <property name="X">320</property>
-                    <property name="Y">332</property>
+                    <property name="Y">322</property>
                   </packing>
                 </child>
                 <child>
@@ -507,7 +509,7 @@
                   </widget>
                   <packing>
                     <property name="X">260</property>
-                    <property name="Y">362</property>
+                    <property name="Y">352</property>
                   </packing>
                 </child>
                 <child>
@@ -521,7 +523,7 @@
                   </widget>
                   <packing>
                     <property name="X">290</property>
-                    <property name="Y">362</property>
+                    <property name="Y">352</property>
                   </packing>
                 </child>
                 <child>
@@ -535,7 +537,7 @@
                   </widget>
                   <packing>
                     <property name="X">320</property>
-                    <property name="Y">362</property>
+                    <property name="Y">352</property>
                   </packing>
                 </child>
                 <child>
@@ -559,6 +561,7 @@
                     <property name="StepIncrement">1</property>
                     <property name="ClimbRate">1</property>
                     <property name="Numeric">True</property>
+                    <property name="Value">2</property>
                   </widget>
                   <packing>
                     <property name="X">260</property>
@@ -574,7 +577,7 @@
                   </widget>
                   <packing>
                     <property name="X">13</property>
-                    <property name="Y">509</property>
+                    <property name="Y">520</property>
                   </packing>
                 </child>
                 <child>
@@ -585,7 +588,7 @@
                   </widget>
                   <packing>
                     <property name="X">13</property>
-                    <property name="Y">486</property>
+                    <property name="Y">500</property>
                   </packing>
                 </child>
                 <child>
@@ -598,7 +601,7 @@
                   </widget>
                   <packing>
                     <property name="X">244</property>
-                    <property name="Y">504</property>
+                    <property name="Y">515</property>
                   </packing>
                 </child>
                 <child>
@@ -611,7 +614,7 @@
                   </widget>
                   <packing>
                     <property name="X">238</property>
-                    <property name="Y">442</property>
+                    <property name="Y">412</property>
                   </packing>
                 </child>
                 <child>
@@ -625,7 +628,76 @@
                   </widget>
                   <packing>
                     <property name="X">260</property>
-                    <property name="Y">392</property>
+                    <property name="Y">382</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Entry" id="WorldEpoch">
+                    <property name="MemberName" />
+                    <property name="WidthRequest">120</property>
+                    <property name="IsEditable">False</property>
+                    <property name="InvisibleChar">•</property>
+                  </widget>
+                  <packing>
+                    <property name="X">250</property>
+                    <property name="Y">40</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="LabelEpoch">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">&lt;b&gt;Epoch&lt;/b&gt;</property>
+                    <property name="UseMarkup">True</property>
+                  </widget>
+                  <packing>
+                    <property name="X">250</property>
+                    <property name="Y">10</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Entry" id="Age">
+                    <property name="MemberName" />
+                    <property name="WidthRequest">100</property>
+                    <property name="IsEditable">False</property>
+                    <property name="InvisibleChar">•</property>
+                  </widget>
+                  <packing>
+                    <property name="X">81</property>
+                    <property name="Y">460</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Entry" id="Birth">
+                    <property name="MemberName" />
+                    <property name="WidthRequest">100</property>
+                    <property name="IsEditable">False</property>
+                    <property name="InvisibleChar">•</property>
+                  </widget>
+                  <packing>
+                    <property name="X">250</property>
+                    <property name="Y">460</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="LabelAge">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">&lt;b&gt;Age&lt;/b&gt;</property>
+                    <property name="UseMarkup">True</property>
+                  </widget>
+                  <packing>
+                    <property name="X">40</property>
+                    <property name="Y">465</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="LabelBirth">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">&lt;b&gt;Birth&lt;/b&gt;</property>
+                    <property name="UseMarkup">True</property>
+                  </widget>
+                  <packing>
+                    <property name="X">200</property>
+                    <property name="Y">465</property>
                   </packing>
                 </child>
               </widget>
