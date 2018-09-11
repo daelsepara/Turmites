@@ -64,8 +64,6 @@ public class Turmite
 	public List<Turn> Turns = new List<Turn>();
 	public List<WorldSystem.Point> Moves = new List<WorldSystem.Point>();
 	protected readonly List<WorldSystem.Point> Neighborhood = new List<WorldSystem.Point>();
-	protected readonly List<Trail> Trails = new List<Trail>();
-	protected List<Trail> ChangeList = new List<Trail>();
 
 	string ParseString(string code, List<string> codebook)
 	{
@@ -344,46 +342,11 @@ public class Turmite
 		}
 	}
 
-	public void Refresh()
-	{
-		var RefreshedTrail = new List<Trail>();
-
-		if (Trails.Count > 0)
-		{
-			ResetLimits();
-		}
-		else
-		{
-			MinX = Head.X;
-			MinY = Head.Y;
-			MaxX = Head.X;
-			MaxY = Head.Y;
-		}
-
-		foreach (var trail in Trails)
-		{
-			if (trail.Value > 0)
-			{
-				RefreshedTrail.Add(trail);
-
-				WriteCell(trail.Cell.X, trail.Cell.Y, trail.Value);
-
-				UpdateLimits(trail.Cell.X, trail.Cell.Y);
-			}
-		}
-
-		Trails.Clear();
-
-		Trails.AddRange(RefreshedTrail);
-	}
-
 	public void WriteCell(int x, int y, int val)
 	{
 		if (x >= 0 && x < LimitX && y >= 0 && y < LimitY)
 		{
-			PushPixel(new Pixel(x, y, val >= 0 && val < CellStates ? ColorPalette[val * Delta] : World.EmptyColor));
-
-			ChangeList.Add(new Trail(x, y, val));
+			WorldParameters.WriteCell(x, y, val, val >= 0 && val < CellStates ? ColorPalette[val * Delta] : World.EmptyColor);
 		}
 	}
 
@@ -398,13 +361,9 @@ public class Turmite
 	{
 		Age++;
 
-		Refresh();
-
 		Move();
 
-		var cell = Trails.Find(e => e.Cell.X == Head.X && e.Cell.Y == Head.Y);
-
-		var color = cell != null ? (cell.Value % Colors.Count) : 0;
+		var color = WorldParameters.Grid[Head.X, Head.Y];
 
 		var state = State;
 
@@ -419,41 +378,8 @@ public class Turmite
 				WriteCell(Head.X, Head.Y, Color);
 			}
 
-			ApplyChanges();
+			WorldParameters.ApplyChanges();
 		}
-	}
-
-	public void ApplyChanges()
-	{
-		foreach (var change in ChangeList)
-		{
-			var cell = Trails.Find(e => e.Cell.X == change.Cell.X && e.Cell.Y == change.Cell.Y);
-
-			if (cell != null)
-			{
-				if (change.Value > 0)
-				{
-					cell.Value = change.Value;
-
-					UpdateLimits(change.Cell.X, change.Cell.Y);
-				}
-				else
-				{
-					Trails.Remove(cell);
-				}
-			}
-			else
-			{
-				if (change.Value > 0)
-				{
-					Trails.Add(change);
-
-					UpdateLimits(change.Cell.X, change.Cell.Y);
-				}
-			}
-		}
-
-		ChangeList.Clear();
 	}
 
 	void Generate(int X, int Y)
@@ -476,44 +402,12 @@ public class Turmite
 		Direction = random.Next(0, Moves.Count);
 	}
 
-	// Rendering
-	protected List<Pixel> PixelWriteBuffer = new List<Pixel>();
-
-	public List<Pixel> GetPixelWriteBuffer()
-	{
-		return new List<Pixel>(PixelWriteBuffer);
-	}
-
-	public void ClearPixelWriteBuffer()
-	{
-		PixelWriteBuffer.Clear();
-	}
-
-	public void PushPixel(Pixel pixel)
-	{
-		if (pixel != null)
-		{
-			PixelWriteBuffer.Add(pixel);
-		}
-	}
-
 	public void Shift(int dx, int dy)
 	{
-		ClearPixelWriteBuffer();
-
-		ChangeList.Clear();
-
 		Head.X += dx;
 		Head.Y += dy;
 
-		foreach (var trail in Trails)
-		{
-			trail.Cell.X += dx;
-
-			trail.Cell.Y += dy;
-
-			UpdateLimits(trail.Cell.X, trail.Cell.Y);
-		}
+		ResetLimits();
 	}
 
 	public Turmite(int X, int Y, int cellStates, string source, Color color, List<WorldSystem.Point> neighborhood, int birth = 0)
@@ -535,6 +429,8 @@ public class Turmite
 		GradientPalette();
 
 		Generate(X, Y);
+
+		ResetLimits();
 
 		UpdateLimits(X, Y);
 	}

@@ -135,6 +135,46 @@ namespace WorldSystem
 		public static Color EmptyColor = new Color(0, 0, 0);
 	}
 
+    public static class IntTrail
+	{
+		public static int Factor = 10000;
+
+        public static int Convert(int x, int y)
+		{
+			return y * Factor + x;
+		}
+	}
+
+    public class TrailInt
+	{
+		public int Cell;
+		public int Value;
+		const int Factor = 10000;
+
+        public TrailInt()
+		{
+			Cell = 0;
+			Value = 0;
+		}
+
+		public TrailInt(int x, int y, int value)
+        {
+			Cell = IntTrail.Convert(x, y);
+
+            Value = value;
+        }
+
+		public int Y()
+        {
+			return Cell / Factor;
+        }
+
+        public int X()
+		{
+			return Cell % Factor;
+		}
+	}
+
 	public class Trail
 	{
 		public Point Cell;

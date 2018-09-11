@@ -139,6 +139,14 @@ public partial class MainWindow : Gtk.Window
 		WorldPixbuf = InitializePixbuf(WorldParameters.Width, WorldParameters.Height);
 
 		WorldPixbuf.Fill(0);
+
+		RemoveAllTurmites();
+
+		WorldParameters.InitGrid();
+
+		Epoch = 0;
+
+		UpdateEpoch();
 	}
 
 	protected bool GetConfirmation()
@@ -155,29 +163,12 @@ public partial class MainWindow : Gtk.Window
 		WorldEpoch.Text = Epoch.ToString();
 	}
 
-	protected int RenderTurmite(Pixbuf pixbuf, Turmite turmite, int x, int y, bool Clear = true)
+	protected void RenderTurmite(Pixbuf pixbuf, Turmite turmite)
 	{
-		var Updates = 0;
+		var width = turmite.MaxX - turmite.MinX + 1;
+		var height = turmite.MaxY - turmite.MinY + 1;
 
-		if (pixbuf != null && turmite != null)
-		{
-			var writeBuffer = turmite.GetPixelWriteBuffer();
-
-			Updates += writeBuffer.Count;
-
-			if (writeBuffer.Count > 0)
-			{
-				foreach (var pixel in writeBuffer)
-				{
-					pixel.Write(pixbuf, x, y);
-				}
-
-				if (Clear)
-					turmite.ClearPixelWriteBuffer();
-			}
-		}
-
-		return Updates;
+		WorldPixbuf.CopyArea(turmite.MinX, turmite.MinY, width, height, pixbuf, 0, 0);
 	}
 
 	protected void RenderTurmiteHeads(Pixbuf pixbuf)
@@ -195,16 +186,25 @@ public partial class MainWindow : Gtk.Window
 
 	protected void RenderTurmites(Pixbuf pixbuf)
 	{
+		WorldParameters.Refresh();
+
 		if (pixbuf != null)
 		{
 			pixbuf.Fill(0);
 
-			int Updates = 0;
+			var writeBuffer = WorldParameters.GetPixelWriteBuffer();
 
-			foreach (var turmite in Turmites)
-			{
-				Updates += RenderTurmite(pixbuf, turmite, 0, 0, true);
-			}
+			int Updates = writeBuffer.Count;
+
+            if (writeBuffer.Count > 0)
+            {
+                foreach (var pixel in writeBuffer)
+                {
+                    pixel.Write(pixbuf, 0, 0);
+                }
+
+                WorldParameters.ClearPixelWriteBuffer();
+            }
 
 			if (Updates <= 0)
 				Pause();
@@ -213,8 +213,12 @@ public partial class MainWindow : Gtk.Window
 
 	protected void RefreshTurmites()
 	{
+		/*
 		foreach (var turmite in Turmites)
 			turmite.Refresh();
+			*/
+
+		WorldParameters.Refresh();
 	}
 
 	protected void Refresh()
@@ -495,6 +499,10 @@ public partial class MainWindow : Gtk.Window
 		WorldPixbuf.Fill(0);
 
 		RenderWorldPixbuf();
+
+		WorldParameters.ClearPixelWriteBuffer();
+
+		WorldParameters.Clear();
 	}
 
 	protected void SaveImageFile()
@@ -535,7 +543,7 @@ public partial class MainWindow : Gtk.Window
 					var turmite = Turmites[num];
 
 					// Populate Write Buffer
-					turmite.Refresh();
+					WorldParameters.Refresh();
 
 					var width = turmite.MaxX - turmite.MinX + 1;
 					var height = turmite.MaxY - turmite.MinY + 1;
@@ -546,8 +554,9 @@ public partial class MainWindow : Gtk.Window
 					{
 						temp.Fill(0);
 
-						// Render to pixbuf but do not clear the write buffer
-						RenderTurmite(temp, turmite, -turmite.MinX, -turmite.MinY, false);
+						Console.WriteLine("width: {0} height: {1}", width, height);
+
+						RenderTurmite(temp, turmite);
 
 						temp.Save(FileName, "png");
 
@@ -700,14 +709,14 @@ public partial class MainWindow : Gtk.Window
 			foreach (var turmite in Turmites)
 				turmite.Update();
 
-			Console.WriteLine("Turmites Rendered in {0} ms", Ticks() - start);
-
 			if (Selected > 0)
 			{
 				UpdateTurmiteLocation();
 			}
 
 			RenderTurmites(WorldPixbuf);
+
+			Console.WriteLine("Turmites Rendered in {0} ms", Ticks() - start);
 		}
 
 		if (ShowTurmites)
