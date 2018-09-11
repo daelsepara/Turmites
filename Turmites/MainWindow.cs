@@ -184,7 +184,7 @@ public partial class MainWindow : Gtk.Window
 		}
 	}
 
-	protected void GetRefreshWindow(out int MinX, out int MinY, out int MaxX, out int MaxY)
+	protected void GetRefreshWindow(ref int MinX, ref int MinY, ref int MaxX, ref int MaxY)
 	{
 		MinX = MinY = int.MaxValue;
 		MaxX = MaxY = int.MinValue;
@@ -200,7 +200,9 @@ public partial class MainWindow : Gtk.Window
 
 	protected void RenderTurmites(Pixbuf pixbuf)
 	{
-		GetRefreshWindow(out int MinX, out int MinY, out int MaxX, out int MaxY);
+		int MinX, MinY, MaxX, MaxY;
+        MinX = MinY = MaxX = MaxY = 0;
+        GetRefreshWindow(ref MinX, ref MinY, ref MaxX, ref MaxY);
 
 		World.RefreshWindow(MinX, MinY, MaxX, MaxY);
 
@@ -551,7 +553,9 @@ public partial class MainWindow : Gtk.Window
 					var turmite = Turmites[num];
 
 					// Populate Write Buffer
-					GetRefreshWindow(out int MinX, out int MinY, out int MaxX, out int MaxY);
+					int MinX, MinY, MaxX, MaxY;
+					MinX = MinY = MaxX = MaxY = 0;
+					GetRefreshWindow(ref MinX, ref MinY, ref MaxX, ref MaxY);
 
 					World.RefreshWindow(MinX, MinY, MaxX, MaxY);
 
