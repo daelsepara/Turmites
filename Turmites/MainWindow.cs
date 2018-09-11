@@ -271,7 +271,7 @@ public partial class MainWindow : Gtk.Window
 		TurmitesList.Sensitive = toggle;
 		Age.Sensitive = toggle;
 		Birth.Sensitive = toggle;
-			
+
 		CopyProgramButton.Sensitive = toggle;
 		TurmiteLibrary.Sensitive = toggle;
 
@@ -766,12 +766,13 @@ public partial class MainWindow : Gtk.Window
 
 				if (GtkSelection.Selection.InBox(cx, cy, box))
 				{
+					World.ClearWindow(Turmites[i].MinX, Turmites[i].MinY, Turmites[i].MaxX, Turmites[i].MaxY);
+
 					Turmites.RemoveAt(i);
 
 					Refresh();
 
 					System.GC.Collect();
-
 					System.GC.WaitForPendingFinalizers();
 
 					break;

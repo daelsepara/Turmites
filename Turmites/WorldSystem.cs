@@ -170,7 +170,6 @@ namespace WorldSystem
 			if (x >= 0 && x < WorldParameters.Width && y >= 0 && y < WorldParameters.Height)
 			{
 				Grid[x, y] = value;
-
 				Owner[x, y] = color;
 
 				PushPixel(new Pixel(x, y, color));
@@ -216,6 +215,10 @@ namespace WorldSystem
 		{
 			if (Grid == null)
 				return;
+
+			ClearPixelWriteBuffer();
+
+			ChangeList.Clear();
 
 			for (int y = MinY; y < MaxY + 1; y++)
 			{
