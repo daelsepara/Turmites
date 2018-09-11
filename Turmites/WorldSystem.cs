@@ -191,9 +191,13 @@ namespace WorldSystem
 
 		public static void RefreshWindow(int MinX, int MinY, int MaxX, int MaxY)
 		{
+            ClearPixelWriteBuffer();
+            
+            ChangeList.Clear();
+            
 			for (int y = MinY; y < MaxY + 1; y++)
 			{
-				for (int x = MinX; x < MaxX; x++)
+				for (int x = MinX; x < MaxX + 1; x++)
 				{
 					if (x >= 0 && x < WorldParameters.Width && y >= 0 && y < WorldParameters.Height)
 					{
@@ -216,40 +220,14 @@ namespace WorldSystem
 			if (Grid == null)
 				return;
 
-			ClearPixelWriteBuffer();
-
-			ChangeList.Clear();
-
 			for (int y = MinY; y < MaxY + 1; y++)
 			{
 				for (int x = MinX; x < MaxX + 1; x++)
 				{
 					if (x >= 0 && x < WorldParameters.Width && y >= 0 && y < WorldParameters.Height)
 					{
-						Grid[x, y] = 0;
-						Owner[x, y] = new Color(0, 0, 0);
+                        WriteCell(x, y, 0, new Color(0, 0, 0));
 					}
-				}
-			}
-		}
-
-		static void Copy(int x, int y, int dx, int dy)
-		{
-			if (x >= 0 && x < WorldParameters.Width && y >= 0 && y < WorldParameters.Height)
-			{
-				var val = Grid[x, y];
-				var color = Owner[x, y];
-
-				Grid[x, y] = 0;
-				Owner[x, y] = new Color(0, 0, 0);
-
-				var xx = x + dx;
-				var yy = y + dy;
-
-				if (xx >= 0 && xx < WorldParameters.Width && yy >= 0 && yy < WorldParameters.Height)
-				{
-					Grid[xx, yy] = val;
-					Owner[xx, yy] = color;
 				}
 			}
 		}
@@ -259,24 +237,43 @@ namespace WorldSystem
 			if (Grid == null)
 				return;
 
-			if (dx == 0 && dy == 0)
-				return;
+            if (dx == 0 && dy == 0)
+                return;
 
-			var dirx = dx < 0 ? 1 : -1;
-			var diry = dy < 0 ? 1 : -1;
+            var width = MaxX - MinX + 1;
+            var height = MaxY - MinY + 1;
 
-			var xmin = dx < 0 ? MinX : MaxX;
-			var ymin = dy < 0 ? MinY : MaxY;
-			var xmax = dx < 0 ? MaxX : MinX;
-			var ymax = dy < 0 ? MaxY : MinY;
+            var tempv = new int[width, height];
+            var tempc = new Color[width, height];
 
-			for (int y = ymin; y != ymax; y += diry)
-			{
-				for (int x = xmin; x != xmax; x += dirx)
-				{
-					Copy(x, y, dx, dy);
-				}
-			}
+            for (int y = MinY; y < MaxY + 1; y++)
+            {
+                for (int x = MinX; x < MaxX + 1; x++)
+                {
+                    if (x >= 0 && x < WorldParameters.Width && y >= 0 && y < WorldParameters.Height)
+                    {
+                        tempv[x - MinX, y - MinY] = Grid[x, y];
+                        tempc[x - MinX, y - MinY] = Owner[x, y];
+                        
+                        WriteCell(x, y, 0, new Color(0, 0, 0));
+                    }
+                }
+            }
+            
+            for (int y = MinY; y < MaxY + 1; y++)
+            {
+                for (int x = MinX; x < MaxX + 1; x++)
+                {
+                    var xx = x + dx;
+                    var yy = y + dy;
+                    
+                    if (xx >= 0 && xx < WorldParameters.Width && yy >= 0 && yy < WorldParameters.Height)
+                    {
+                        if (tempv[x - MinX, y - MinY] > 0)
+                            WriteCell(xx, yy, tempv[x - MinX, y - MinY], tempc[x - MinX, y - MinY]);
+                    }
+                }
+            }
 		}
 
 		public static void Clear()

@@ -402,7 +402,8 @@ public class Turmite
 
 		SetCyclic(Cyclic);
 
-		SetLimits(LimitX, LimitY);
+		MinX = MaxX = X;
+		MinY = MaxY = Y;
 
 		Head.X = X;
 		Head.Y = Y;
@@ -446,9 +447,5 @@ public class Turmite
 		GradientPalette();
 
 		Generate(X, Y);
-
-		ResetLimits();
-
-		UpdateLimits(X, Y);
 	}
 }
