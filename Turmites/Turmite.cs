@@ -286,9 +286,9 @@ public class Turmite
 	}
 
 	public bool GetCyclic()
-    {
-        return Cyclic;
-    }
+	{
+		return Cyclic;
+	}
 
 	public void SetCyclic(bool cyclic)
 	{
@@ -346,7 +346,7 @@ public class Turmite
 	{
 		if (x >= 0 && x < LimitX && y >= 0 && y < LimitY)
 		{
-			WorldParameters.WriteCell(x, y, val, val >= 0 && val < CellStates ? ColorPalette[val * Delta] : World.EmptyColor);
+			World.WriteCell(x, y, val, val >= 0 && val < CellStates ? ColorPalette[val * Delta] : World.EmptyColor);
 		}
 	}
 
@@ -363,7 +363,7 @@ public class Turmite
 
 		Move();
 
-		var color = WorldParameters.Grid[Head.X, Head.Y];
+		var color = World.Grid[Head.X, Head.Y];
 
 		var state = State;
 
@@ -378,7 +378,7 @@ public class Turmite
 				WriteCell(Head.X, Head.Y, Color);
 			}
 
-			WorldParameters.ApplyChanges();
+			World.ApplyChanges();
 		}
 	}
 
@@ -407,12 +407,12 @@ public class Turmite
 		Head.X += dx;
 		Head.Y += dy;
 
-		WorldParameters.MoveWindow(MinX, MinY, MaxX, MaxY, dx, dy);
+		World.MoveWindow(MinX, MinY, MaxX, MaxY, dx, dy);
 
 		MinX += dx;
 		MinY += dy;
 		MaxX += dx;
-        MaxY += dy;
+		MaxY += dy;
 	}
 
 	public Turmite(int X, int Y, int cellStates, string source, Color color, List<WorldSystem.Point> neighborhood, int birth = 0)

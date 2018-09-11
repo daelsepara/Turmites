@@ -142,7 +142,7 @@ public partial class MainWindow : Gtk.Window
 
 		RemoveAllTurmites();
 
-		WorldParameters.InitGrid();
+		World.InitGrid();
 
 		Epoch = 0;
 
@@ -158,7 +158,7 @@ public partial class MainWindow : Gtk.Window
 		return confirm;
 	}
 
-    protected void UpdateEpoch()
+	protected void UpdateEpoch()
 	{
 		WorldEpoch.Text = Epoch.ToString();
 	}
@@ -184,12 +184,12 @@ public partial class MainWindow : Gtk.Window
 		}
 	}
 
-    protected void GetRefreshWindow(out int MinX, out int MinY, out int MaxX, out int MaxY)
+	protected void GetRefreshWindow(out int MinX, out int MinY, out int MaxX, out int MaxY)
 	{
-		MinX = MinY =int.MaxValue;
+		MinX = MinY = int.MaxValue;
 		MaxX = MaxY = int.MinValue;
 
-	    foreach(var turmite in Turmites)
+		foreach (var turmite in Turmites)
 		{
 			MinX = turmite.MinX < MinX ? turmite.MinX : MinX;
 			MaxX = turmite.MaxX > MaxX ? turmite.MaxX : MaxX;
@@ -200,29 +200,27 @@ public partial class MainWindow : Gtk.Window
 
 	protected void RenderTurmites(Pixbuf pixbuf)
 	{
-		int MinX, MinY, MaxX, MaxY;
+		GetRefreshWindow(out int MinX, out int MinY, out int MaxX, out int MaxY);
 
-		GetRefreshWindow(out MinX, out MinY, out MaxX, out MaxY);
-
-		WorldParameters.RefreshWindow(MinX, MinY, MaxX, MaxY);
+		World.RefreshWindow(MinX, MinY, MaxX, MaxY);
 
 		if (pixbuf != null)
 		{
 			pixbuf.Fill(0);
 
-			var writeBuffer = WorldParameters.GetPixelWriteBuffer();
+			var writeBuffer = World.GetPixelWriteBuffer();
 
 			int Updates = writeBuffer.Count;
 
-            if (writeBuffer.Count > 0)
-            {
-                foreach (var pixel in writeBuffer)
-                {
-                    pixel.Write(pixbuf, 0, 0);
-                }
+			if (writeBuffer.Count > 0)
+			{
+				foreach (var pixel in writeBuffer)
+				{
+					pixel.Write(pixbuf, 0, 0);
+				}
 
-                WorldParameters.ClearPixelWriteBuffer();
-            }
+				World.ClearPixelWriteBuffer();
+			}
 
 			if (Updates <= 0)
 				Pause();
@@ -294,14 +292,14 @@ public partial class MainWindow : Gtk.Window
 		Paused = false;
 	}
 
-    protected void UpdateTurmiteLocation()
+	protected void UpdateTurmiteLocation()
 	{
 		if (Selected > 0 && Selected <= Turmites.Count)
 		{
 			var turmite = Turmites[Selected - 1];
 
 			TurmiteHeadX.Value = turmite.Head.X;
-            TurmiteHeadY.Value = turmite.Head.Y;
+			TurmiteHeadY.Value = turmite.Head.Y;
 
 			Age.Text = turmite.Age.ToString();
 		}
@@ -507,9 +505,9 @@ public partial class MainWindow : Gtk.Window
 
 		RenderWorldPixbuf();
 
-		WorldParameters.ClearPixelWriteBuffer();
+		World.ClearPixelWriteBuffer();
 
-		WorldParameters.Clear();
+		World.Clear();
 	}
 
 	protected void SaveImageFile()
@@ -550,11 +548,9 @@ public partial class MainWindow : Gtk.Window
 					var turmite = Turmites[num];
 
 					// Populate Write Buffer
-					int MinX, MinY, MaxX, MaxY;
+					GetRefreshWindow(out int MinX, out int MinY, out int MaxX, out int MaxY);
 
-					GetRefreshWindow(out MinX, out MinY, out MaxX, out MaxY);
-
-					WorldParameters.RefreshWindow(MinX, MinY, MaxX, MaxY);
+					World.RefreshWindow(MinX, MinY, MaxX, MaxY);
 
 					var width = turmite.MaxX - turmite.MinX + 1;
 					var height = turmite.MaxY - turmite.MinY + 1;
@@ -564,8 +560,6 @@ public partial class MainWindow : Gtk.Window
 					if (temp != null)
 					{
 						temp.Fill(0);
-
-						Console.WriteLine("width: {0} height: {1}", width, height);
 
 						RenderTurmite(temp, turmite);
 
@@ -837,19 +831,19 @@ public partial class MainWindow : Gtk.Window
 				IsDragging = false;
 
 				var dx = X1 - prevX;
-                var dy = Y1 - prevY;
+				var dy = Y1 - prevY;
 
-                prevX = X1;
-                prevY = Y1;
+				prevX = X1;
+				prevY = Y1;
 
-                // move turmite
-                if (Selected > 0 && Selected <= Turmites.Count)
-                {
-                    Turmites[Selected - 1].Shift(dx, dy);
+				// move turmite
+				if (Selected > 0 && Selected <= Turmites.Count)
+				{
+					Turmites[Selected - 1].Shift(dx, dy);
 
 					InitializeSelected();
 
-                    Refresh();
+					Refresh();
 				}
 			}
 			else
@@ -882,7 +876,7 @@ public partial class MainWindow : Gtk.Window
 
 		if (!IsDragging || !Paused)
 			return;
-  
+
 	}
 
 	protected void OnWorldImageScrollXValueChanged(object sender, EventArgs e)
