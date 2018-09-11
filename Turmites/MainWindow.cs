@@ -250,6 +250,7 @@ public partial class MainWindow : Gtk.Window
 		BM.Sensitive = toggle;
 		BL.Sensitive = toggle;
 		ML.Sensitive = toggle;
+		Cyclic.Sensitive = toggle;
 	}
 
 	protected void ToggleControls(bool toggle)
@@ -268,7 +269,9 @@ public partial class MainWindow : Gtk.Window
 		TurmiteProgram.Sensitive = toggle;
 		TurmiteStates.Sensitive = toggle;
 		TurmitesList.Sensitive = toggle;
-
+		Age.Sensitive = toggle;
+		Birth.Sensitive = toggle;
+			
 		CopyProgramButton.Sensitive = toggle;
 		TurmiteLibrary.Sensitive = toggle;
 
