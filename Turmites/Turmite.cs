@@ -239,6 +239,14 @@ public class Turmite
 		LimitY = height;
 	}
 
+	void ClipLimits()
+	{
+		Clip(ref MinX, LimitX);
+		Clip(ref MaxX, LimitX);
+		Clip(ref MinY, LimitY);
+		Clip(ref MaxY, LimitY);
+	}
+
 	// Update Turmite Boundaries
 	void UpdateLimits(int X, int Y)
 	{
@@ -247,6 +255,8 @@ public class Turmite
 		MinY = Y < MinY ? Y : MinY;
 		MaxX = X > MaxX ? X : MaxX;
 		MaxY = Y > MaxY ? Y : MaxY;
+
+		ClipLimits();
 	}
 
 	void ResetLimits()
@@ -413,6 +423,8 @@ public class Turmite
 		MinY += dy;
 		MaxX += dx;
 		MaxY += dy;
+
+		ClipLimits();
 	}
 
 	public Turmite(int X, int Y, int cellStates, string source, Color color, List<WorldSystem.Point> neighborhood, int birth = 0)

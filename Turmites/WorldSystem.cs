@@ -196,9 +196,12 @@ namespace WorldSystem
 			{
 				for (int x = MinX; x < MaxX; x++)
 				{
-					if (Grid[x, y] > 0)
+					if (x >= 0 && x < WorldParameters.Width && y >= 0 && y < WorldParameters.Height)
 					{
-						WriteCell(x, y, Grid[x, y], Owner[x, y]);
+						if (Grid[x, y] > 0)
+						{
+							WriteCell(x, y, Grid[x, y], Owner[x, y]);
+						}
 					}
 				}
 			}
@@ -229,19 +232,22 @@ namespace WorldSystem
 
 		static void Copy(int x, int y, int dx, int dy)
 		{
-			var val = Grid[x, y];
-			var color = Owner[x, y];
-
-			Grid[x, y] = 0;
-			Owner[x, y] = new Color(0, 0, 0);
-
-			var xx = x + dx;
-			var yy = y + dy;
-
-			if (xx >= 0 && xx < WorldParameters.Width && yy >= 0 && yy < WorldParameters.Height)
+			if (x >= 0 && x < WorldParameters.Width && y >= 0 && y < WorldParameters.Height)
 			{
-				Grid[xx, yy] = val;
-				Owner[xx, yy] = color;
+				var val = Grid[x, y];
+				var color = Owner[x, y];
+
+				Grid[x, y] = 0;
+				Owner[x, y] = new Color(0, 0, 0);
+
+				var xx = x + dx;
+				var yy = y + dy;
+
+				if (xx >= 0 && xx < WorldParameters.Width && yy >= 0 && yy < WorldParameters.Height)
+				{
+					Grid[xx, yy] = val;
+					Owner[xx, yy] = color;
+				}
 			}
 		}
 
@@ -252,7 +258,7 @@ namespace WorldSystem
 
 			if (dx == 0 && dy == 0)
 				return;
-			
+
 			var dirx = dx < 0 ? 1 : -1;
 			var diry = dy < 0 ? 1 : -1;
 
