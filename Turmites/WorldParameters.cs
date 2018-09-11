@@ -88,6 +88,51 @@ public static class WorldParameters
 		RefreshWindow(0, 0, Width - 1, Height - 1);
     }
 
+	public static void ClearWindow(int MinX, int MinY, int MaxX, int MaxY)
+    {
+        if (Grid == null)
+            return;
+
+		for (int y = MinY; y < MaxY + 1; y++)
+        {
+            for (int x = MinX; x < MaxX + 1; x++)
+            {
+				if (x >= 0 && x < Width && y >= 0 && y < Height)
+				{
+					Grid[x, y] = 0;
+					Owner[x, y] = new Color(0, 0, 0);
+				}
+            }
+        }
+    }
+
+	public static void MoveWindow(int MinX, int MinY, int MaxX, int MaxY, int dx, int dy)
+    {
+        if (Grid == null)
+            return;
+
+        for (int y = MinY; y < MaxY + 1; y++)
+        {
+            for (int x = MinX; x < MaxX + 1; x++)
+            {
+				var val = Grid[x, y];
+				var color = Owner[x, y];
+
+                Grid[x, y] = 0;
+                Owner[x, y] = new Color(0, 0, 0);
+
+				var xx = x + dx;
+				var yy = y + dy;
+
+				if (xx >= 0 && xx <  Width && yy >= 0 && yy < Height)
+				{
+					Grid[xx, yy] = val;
+                    Owner[xx, yy] = color;
+				}
+            }
+        }
+    }
+
     public static void Clear()
 	{
 		if (Grid == null)

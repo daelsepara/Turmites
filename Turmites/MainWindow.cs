@@ -836,11 +836,20 @@ public partial class MainWindow : Gtk.Window
 			{
 				IsDragging = false;
 
-				if (Selected > 0)
-				{
+				var dx = X1 - prevX;
+                var dy = Y1 - prevY;
+
+                prevX = X1;
+                prevY = Y1;
+
+                // move turmite
+                if (Selected > 0 && Selected <= Turmites.Count)
+                {
+                    Turmites[Selected - 1].Shift(dx, dy);
+
 					InitializeSelected();
 
-					Refresh();
+                    Refresh();
 				}
 			}
 			else
@@ -873,21 +882,7 @@ public partial class MainWindow : Gtk.Window
 
 		if (!IsDragging || !Paused)
 			return;
-
-		if (IsDragging)
-		{
-			var dx = X1 - prevX;
-			var dy = Y1 - prevY;
-
-			prevX = X1;
-			prevY = Y1;
-
-			// move turmite
-			if (Selected > 0 && Selected <= Turmites.Count)
-			{
-				Turmites[Selected - 1].Shift(dx, dy);
-			}
-		}
+  
 	}
 
 	protected void OnWorldImageScrollXValueChanged(object sender, EventArgs e)

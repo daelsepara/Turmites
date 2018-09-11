@@ -407,7 +407,12 @@ public class Turmite
 		Head.X += dx;
 		Head.Y += dy;
 
-		ResetLimits();
+		WorldParameters.MoveWindow(MinX, MinY, MaxX, MaxY, dx, dy);
+
+		MinX += dx;
+		MinY += dy;
+		MaxX += dx;
+        MaxY += dy;
 	}
 
 	public Turmite(int X, int Y, int cellStates, string source, Color color, List<WorldSystem.Point> neighborhood, int birth = 0)
