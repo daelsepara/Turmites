@@ -184,9 +184,27 @@ public partial class MainWindow : Gtk.Window
 		}
 	}
 
+    protected void GetRefreshWindow(out int MinX, out int MinY, out int MaxX, out int MaxY)
+	{
+		MinX = MinY =int.MaxValue;
+		MaxX = MaxY = int.MinValue;
+
+	    foreach(var turmite in Turmites)
+		{
+			MinX = turmite.MinX < MinX ? turmite.MinX : MinX;
+			MaxX = turmite.MaxX > MaxX ? turmite.MaxX : MaxX;
+			MinY = turmite.MinY < MinY ? turmite.MinY : MinY;
+			MaxY = turmite.MaxY > MaxY ? turmite.MaxY : MaxY;
+		}
+	}
+
 	protected void RenderTurmites(Pixbuf pixbuf)
 	{
-		WorldParameters.Refresh();
+		int MinX, MinY, MaxX, MaxY;
+
+		GetRefreshWindow(out MinX, out MinY, out MaxX, out MaxY);
+
+		WorldParameters.RefreshWindow(MinX, MinY, MaxX, MaxY);
 
 		if (pixbuf != null)
 		{
@@ -211,19 +229,8 @@ public partial class MainWindow : Gtk.Window
 		}
 	}
 
-	protected void RefreshTurmites()
-	{
-		/*
-		foreach (var turmite in Turmites)
-			turmite.Refresh();
-			*/
-
-		WorldParameters.Refresh();
-	}
-
 	protected void Refresh()
 	{
-		RefreshTurmites();
 		RenderTurmites(WorldPixbuf);
 		RenderWorldPixbuf();
 	}
@@ -543,7 +550,11 @@ public partial class MainWindow : Gtk.Window
 					var turmite = Turmites[num];
 
 					// Populate Write Buffer
-					WorldParameters.Refresh();
+					int MinX, MinY, MaxX, MaxY;
+
+					GetRefreshWindow(out MinX, out MinY, out MaxX, out MaxY);
+
+					WorldParameters.RefreshWindow(MinX, MinY, MaxX, MaxY);
 
 					var width = turmite.MaxX - turmite.MinX + 1;
 					var height = turmite.MaxY - turmite.MinY + 1;

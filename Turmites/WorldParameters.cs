@@ -69,18 +69,23 @@ public static class WorldParameters
         ChangeList.Clear();
     }
 
-	public static void Refresh()
+	public static void RefreshWindow(int MinX, int MinY, int MaxX, int MaxY)
     {
-        for (int y = 0; y < Height; y++)
+		for (int y = MinY; y < MaxY + 1; y++)
         {
-            for (int x = 0; x < Width; x++)
+			for (int x = MinX; x < MaxX; x++)
             {
                 if (Grid[x, y] > 0)
                 {
-					WriteCell(x, y, Grid[x, y], Owner[x, y]);
+                    WriteCell(x, y, Grid[x, y], Owner[x, y]);
                 }
             }
         }
+    }
+
+	public static void Refresh()
+    {
+		RefreshWindow(0, 0, Width - 1, Height - 1);
     }
 
     public static void Clear()
