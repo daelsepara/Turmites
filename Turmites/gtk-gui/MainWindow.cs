@@ -387,7 +387,7 @@ public partial class MainWindow
 		this.PropertiesPageLayout.Add(this.GtkScrolledWindow);
 		global::Gtk.Fixed.FixedChild w22 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.GtkScrolledWindow]));
 		w22.X = 78;
-		w22.Y = 270;
+		w22.Y = 280;
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.TurmiteColor = new global::Gtk.ColorButton();
 		this.TurmiteColor.WidthRequest = 150;
@@ -587,7 +587,7 @@ public partial class MainWindow
 		// Container child PropertiesPageLayout.Gtk.Fixed+FixedChild
 		this.Cyclic = new global::Gtk.CheckButton();
 		this.Cyclic.Name = "Cyclic";
-		this.Cyclic.Label = global::Mono.Unix.Catalog.GetString("Cyclic Boundary");
+		this.Cyclic.Label = global::Mono.Unix.Catalog.GetString("Cyclic?");
 		this.Cyclic.DrawIndicator = true;
 		this.Cyclic.UseUnderline = true;
 		this.Cyclic.FocusOnClick = false;

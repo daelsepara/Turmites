@@ -363,7 +363,7 @@
                   </widget>
                   <packing>
                     <property name="X">78</property>
-                    <property name="Y">270</property>
+                    <property name="Y">280</property>
                   </packing>
                 </child>
                 <child>
@@ -620,7 +620,7 @@
                 <child>
                   <widget class="Gtk.CheckButton" id="Cyclic">
                     <property name="MemberName" />
-                    <property name="Label" translatable="yes">Cyclic Boundary</property>
+                    <property name="Label" translatable="yes">Cyclic?</property>
                     <property name="DrawIndicator">True</property>
                     <property name="HasLabel">True</property>
                     <property name="UseUnderline">True</property>
