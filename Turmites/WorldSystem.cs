@@ -250,6 +250,9 @@ namespace WorldSystem
 			if (Grid == null)
 				return;
 
+			if (dx == 0 && dy == 0)
+				return;
+			
 			var dirx = dx < 0 ? 1 : -1;
 			var diry = dy < 0 ? 1 : -1;
 
