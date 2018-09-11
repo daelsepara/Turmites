@@ -227,29 +227,42 @@ namespace WorldSystem
 			}
 		}
 
+		static void Copy(int x, int y, int dx, int dy)
+		{
+			var val = Grid[x, y];
+			var color = Owner[x, y];
+
+			Grid[x, y] = 0;
+			Owner[x, y] = new Color(0, 0, 0);
+
+			var xx = x + dx;
+			var yy = y + dy;
+
+			if (xx >= 0 && xx < WorldParameters.Width && yy >= 0 && yy < WorldParameters.Height)
+			{
+				Grid[xx, yy] = val;
+				Owner[xx, yy] = color;
+			}
+		}
+
 		public static void MoveWindow(int MinX, int MinY, int MaxX, int MaxY, int dx, int dy)
 		{
 			if (Grid == null)
 				return;
 
-			for (int y = MinY; y < MaxY + 1; y++)
+			var dirx = dx < 0 ? 1 : -1;
+			var diry = dy < 0 ? 1 : -1;
+
+			var xmin = dx < 0 ? MinX : MaxX;
+			var ymin = dy < 0 ? MinY : MaxY;
+			var xmax = dx < 0 ? MaxX : MinX;
+			var ymax = dy < 0 ? MaxY : MinY;
+
+			for (int y = ymin; y != ymax; y += diry)
 			{
-				for (int x = MinX; x < MaxX + 1; x++)
+				for (int x = xmin; x != xmax; x += dirx)
 				{
-					var val = Grid[x, y];
-					var color = Owner[x, y];
-
-					Grid[x, y] = 0;
-					Owner[x, y] = new Color(0, 0, 0);
-
-					var xx = x + dx;
-					var yy = y + dy;
-
-					if (xx >= 0 && xx < WorldParameters.Width && yy >= 0 && yy < WorldParameters.Height)
-					{
-						Grid[xx, yy] = val;
-						Owner[xx, yy] = color;
-					}
+					Copy(x, y, dx, dy);
 				}
 			}
 		}
