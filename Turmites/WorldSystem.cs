@@ -98,8 +98,8 @@ namespace WorldSystem
 			return neighborhood;
 		}
 
-		// 6 Neighbor approximation of the hexagonal lattice
-		public static List<Point> HexNeighborhood()
+        // 6 Neighbor approximation of the hexagonal lattice
+        public static List<Point> HexNeighborhood()
 		{
 			var neighborhood = new List<Point>();
 
@@ -113,8 +113,8 @@ namespace WorldSystem
 			return neighborhood;
 		}
 
-		// 4 Neighbor Von Neumann
-		public static List<Point> VonNeumannNeighborhood()
+        // 4 Neighbor Von Neumann
+        public static List<Point> VonNeumannNeighborhood()
 		{
 			var neighborhood = new List<Point>();
 
@@ -284,7 +284,11 @@ namespace WorldSystem
 			if (Grid == null)
 				return;
 
-			for (int y = 0; y < WorldParameters.Height; y++)
+            ClearPixelWriteBuffer();
+
+            ChangeList.Clear();
+
+            for (int y = 0; y < WorldParameters.Height; y++)
 			{
 				for (int x = 0; x < WorldParameters.Width; x++)
 				{
