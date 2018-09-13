@@ -547,6 +547,8 @@ public partial class MainWindow : Gtk.Window
 					FileName += ".png";
 				}
 
+				RenderTurmites(WorldPixbuf);
+
 				if (Selected > 0 && Turmites.Count > 0 && (Selected - 1) < Turmites.Count)
 				{
 					var num = Selected - 1;
