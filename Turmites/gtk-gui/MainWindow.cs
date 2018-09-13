@@ -139,7 +139,7 @@ public partial class MainWindow
 		w1.Add(this.RunButton, null);
 		this.PauseButton = new global::Gtk.Action("PauseButton", null, global::Mono.Unix.Catalog.GetString("Stop Simulation"), "gtk-media-stop");
 		w1.Add(this.PauseButton, null);
-		this.SaveButton = new global::Gtk.Action("SaveButton", null, null, "gtk-save");
+		this.SaveButton = new global::Gtk.Action("SaveButton", null, global::Mono.Unix.Catalog.GetString("Save Turmite Image"), "gtk-save");
 		w1.Add(this.SaveButton, null);
 		this.ClearButton = new global::Gtk.Action("ClearButton", null, global::Mono.Unix.Catalog.GetString("Remove All Turmites"), "gtk-delete");
 		w1.Add(this.ClearButton, null);
@@ -415,6 +415,7 @@ public partial class MainWindow
 		this.TurmiteToolBar = ((global::Gtk.Toolbar)(this.UIManager.GetWidget("/TurmiteToolBar")));
 		this.TurmiteToolBar.Name = "TurmiteToolBar";
 		this.TurmiteToolBar.ShowArrow = false;
+		this.TurmiteToolBar.ToolbarStyle = ((global::Gtk.ToolbarStyle)(0));
 		this.PropertiesPageLayout.Add(this.TurmiteToolBar);
 		global::Gtk.Fixed.FixedChild w25 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.TurmiteToolBar]));
 		w25.X = 240;
@@ -571,6 +572,7 @@ public partial class MainWindow
 		this.LibraryToolbar = ((global::Gtk.Toolbar)(this.UIManager.GetWidget("/LibraryToolbar")));
 		this.LibraryToolbar.Name = "LibraryToolbar";
 		this.LibraryToolbar.ShowArrow = false;
+		this.LibraryToolbar.ToolbarStyle = ((global::Gtk.ToolbarStyle)(0));
 		this.PropertiesPageLayout.Add(this.LibraryToolbar);
 		global::Gtk.Fixed.FixedChild w40 = ((global::Gtk.Fixed.FixedChild)(this.PropertiesPageLayout[this.LibraryToolbar]));
 		w40.X = 244;

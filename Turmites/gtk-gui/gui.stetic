@@ -33,6 +33,7 @@
         <property name="Type">Action</property>
         <property name="Label" translatable="yes" />
         <property name="StockId">gtk-save</property>
+        <property name="Tooltip" translatable="yes">Save Turmite Image</property>
         <signal name="Activated" handler="OnSaveButtonClicked" />
       </action>
       <action id="ClearButton">
@@ -396,6 +397,7 @@
                   <widget class="Gtk.Toolbar" id="TurmiteToolBar">
                     <property name="MemberName" />
                     <property name="ShowArrow">False</property>
+                    <property name="ButtonStyle">Icons</property>
                     <node name="TurmiteToolBar" type="Toolbar">
                       <node type="Toolitem" action="TurmiteAddButton" />
                     </node>
@@ -595,6 +597,7 @@
                   <widget class="Gtk.Toolbar" id="LibraryToolbar">
                     <property name="MemberName" />
                     <property name="ShowArrow">False</property>
+                    <property name="ButtonStyle">Icons</property>
                     <node name="LibraryToolbar" type="Toolbar">
                       <node type="Toolitem" action="CopyProgramButton" />
                     </node>
