@@ -47,11 +47,11 @@ Each iteration, a Turmite moves forward in the current direction, reads the colo
 
 Then performs an action specified by the Tuple that applies to its present configuration (Location, Current Direction, State):
 
-* 1OX1R
+### 1OX1R
 
 If the Turmite is in state **1** and reads and empty cell **O**, it will mark the cell with the **X** color, remain in state **1** and turn right **R** 
 
-* 1XO1L
+### 1XO1L
 
 If the Turmite is in state **1** and reads a non-empty cell **X**, it will erase the cell with the **O** color, remain in state **1** and turn left **L**
 
