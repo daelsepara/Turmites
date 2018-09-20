@@ -31,8 +31,8 @@ Possible values for Turn (T)
 
 * L - left
 * R - right
-- S - stay in current direction (move forward)
-- B - move backward
+* S - stay in current direction (move forward)
+* B - move backward
 
 You can specify the neighborhood configuration of a Turmite. Turn directions automatically adopt to the configuration you have specified
 
@@ -40,15 +40,15 @@ You can specify the neighborhood configuration of a Turmite. Turn directions aut
 
 Lanton's ant has a simple program consisting of 2 Tuples:
 
-1OX1R
-1XO1L
+* 1OX1R
+* 1XO1L
 
 Each iteration, a Turmite moves forward in the current direction, reads the color at current location of its head, then consults its program.
 
-Then performs an action specified by the Tuple that applies to its present states:
+Then performs an action specified by the Tuple that applies to its present configuration (Location, Current Direction, State):
 
-*1OX1R* - If the Turmite is in state *1* and reads and empty cell *O*, it will mark the cell with the *X* color, remain in state *1* and turn right *R* 
-*1XO1L* - If the Turmite is in state *1* and reads a non-empty cell *X*, it will erase the cell with the *O* color, remain in state *1* and turn left *L*
+* 1OX1R If the Turmite is in state **1** and reads and empty cell **O**, it will mark the cell with the **X** color, remain in state **1** and turn right **R** 
+* 1XO1L If the Turmite is in state **1** and reads a non-empty cell **X**, it will erase the cell with the **O** color, remain in state **1** and turn left **L**
 
 More complex behaviors are observed depending on the complexity of the program
 
