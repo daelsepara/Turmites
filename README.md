@@ -4,7 +4,7 @@
 
 ![About](/Screenshots/Turmites.png)
 
-Turmites is a program for programming, simulating, and visualizing 2D Turing machines, called Turmites. This software is a spin-off from the GtkArtificialLife project (https://github.com/daelsepara/GtkArtificialLife) focusing exclusively on Turing Machines. Unlike the artificial life simulator where entire colonies are manipulated, this software allows you to program individual Turmites. Also, individual Turmites can interact with other Turmites (or the trails they leave behind).
+Turmites is a program for programming, simulating, and visualizing 2D Turing machines, called Turmites. This software is a spin-off from the Gtk Artificial Life project (https://github.com/daelsepara/GtkArtificialLife) focusing exclusively on Turing Machines. Unlike the artificial life simulator where entire colonies are simulated, this software allows you to program individual Turmites. Also, individual Turmites can interact with other Turmites (or the trails they leave behind).
 
 ## Programming Turmites
 
@@ -82,3 +82,7 @@ At any time you can start / stop the simulation by clicking on the buttons at th
 ## Striped Spiral
 
 ![Striped Spiral](/Screenshots/StripedSpiral.png)
+
+# Platform
+
+Turmites software has been tested on Linux, OSX, and Windows platforms
