@@ -362,20 +362,20 @@ public partial class MainWindow : Gtk.Window
 
 		if (WorldImageScrollX.Sensitive)
 		{
-			WorldImageScrollX.SetRange(0.0, WorldParameters.Width - WorldParameters.WindowX);
+			WorldImageScrollX.SetRange(0, WorldParameters.Width - WorldParameters.WindowX);
 		}
 		else
 		{
-			WorldImageScrollX.SetRange(0.0, WorldParameters.WindowX);
+			WorldImageScrollX.SetRange(0, WorldParameters.WindowX);
 		}
 
 		if (WorldImageScrollY.Sensitive)
 		{
-			WorldImageScrollY.SetRange(0.0, WorldParameters.Height - WorldParameters.WindowY);
+			WorldImageScrollY.SetRange(0, WorldParameters.Height - WorldParameters.WindowY);
 		}
 		else
 		{
-			WorldImageScrollY.SetRange(0.0, WorldParameters.WindowY);
+			WorldImageScrollY.SetRange(0, WorldParameters.WindowY);
 		}
 
 		WorldParameters.CursorX = 0;
